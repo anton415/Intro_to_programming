@@ -1,17 +1,19 @@
 header, footer {
-  text-align: center;
+text-align: center;
 }
-
 h2 {
-  background-color: lightblue;
-  text-align: center;
+background-color: lightblue;
+text-align: center;
 }
-
 .icon {
-  margin: 30px;
+margin: 30px;
 }
-
 .Skills, .MyCV, .Education, .Achievements {
-  display: -webkit-flex;
-  display: flex;
+display: -webkit-flex;
+display: flex;
+}
+*{
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+box-sizing: border-box;
 }
