@@ -6,7 +6,7 @@ data = {
             'truck. - Cory Dodt.', 'Perfection [in design] is achieved, not when there is ___1___ more to add'
             ', but when there is ___1___ left to take away. - Antoine de Saint-Exupéry'],
         'answers': [['replacement'], ['nothing']],
-        'failures': 5
+        'attempts': 5
     },
     'medium': {
         'phrase': ['Always ___1___ as if the guy who ends up maintaining your ___1___ will be a violent ___2___ who '
@@ -14,14 +14,14 @@ data = {
             'use as my ___1___; my wish has come true because I can no longer figure out how to use my ___1___'
             '. - Bjarne Stroustrup'],
         'answers': [['code', 'psychopath'], ['telephone']],
-        'failures': 3
+        'attempts': 3
     },
     'hard': {
         'phrase': ['Most good ___1___ do programming not because they expect to get ___2___ or get adulation by the '
             'public, but because it is ___3___ to program. - Linus Torvalds', 'Don’t worry if it doesn’t work '
             '___1___. If everything did, you’d be out of a job. - Mosher’s Law of Software Engineering'],
         'answers': [['programmers', 'paid', 'fun'], ['right']],
-        'failures': 1
+        'attempts': 1
     }
 }
 
@@ -38,7 +38,7 @@ def insert_answer(phrase, answers, answers_number):
         if (string == empty_string):
             phrase[index] = answers[answers_number - 1]
 
-def game(phrases, answers, failures):
+def game(phrases, answers, attempts):
     """
     Behavior: This main method. You sould answer in all words.
     :param phrases: Array with phrases.
@@ -48,12 +48,13 @@ def game(phrases, answers, failures):
     """
     answers_number = 0
     phrase_number = 0
-    while len(phrases) > phrase_number and failures > 0:
-        failures = mini_game(phrases[phrase_number], answers[answers_number], failures)
+    failure_number = 0
+    while len(phrases) > phrase_number and attempts > failure_number:
+        failure_number = mini_game(phrases[phrase_number], answers[answers_number], attempts, failure_number)
         phrase_number += 1
         answers_number += 1
 
-def mini_game(phrase, answers, failures):
+def mini_game(phrase, answers, attempts, failure_number):
     """
     Behavior: This method for help main method. You wirk only with one phrase.
     :param phrase: Phrase with empty words.
@@ -63,7 +64,7 @@ def mini_game(phrase, answers, failures):
     """
     answers_number = 1
     phrase = phrase.split()
-    while len(answers) + 1 > answers_number and failures > 0:
+    while len(answers) + 1 > answers_number and attempts > failure_number:
         print " ".join(phrase)
         word = raw_input("Type " + str(answers_number) + " word: ")
         if word in answers:
@@ -73,11 +74,22 @@ def mini_game(phrase, answers, failures):
             break
         else:
             print "try again :("
-            failures -= 1
-            print "You have " + str(failures) + " attempts."
+            failure_number += 1
+            print "You have " + str(attempts - failure_number) + " attempts."
     print " ".join(phrase)
-    return failures
+    return failure_number
 
+def choose_level():
+    """
+    Behavior: This method for choose user level.
+    :param: None.
+    :return: Level.
+    """
+    while True:
+        level = raw_input('Choose a level (easy / medium / hard): ').lower()
+        if level in data:
+                return level
+        print 'Incorrect level! Try again!'
 
-level = raw_input('Choose a level (easy / medium / hard): ').lower()
-game(data[level]['phrase'], data[level]['answers'], data[level]['failures'])
+level = choose_level()
+game(data[level]['phrase'], data[level]['answers'], data[level]['attempts'])
