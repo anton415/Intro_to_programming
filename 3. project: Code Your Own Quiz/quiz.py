@@ -3,24 +3,33 @@
 data = {
     'easy': {
         'phrase': ['Pythons a drop-in ___1___ for BASIC in the sense that Optimus Prime is a drop-in ___1___ for a '
-            'truck. - Cory Dodt.', 'Perfection [in design] is achieved, not when there is ___1___ more to add'
-            ', but when there is ___1___ left to take away. - Antoine de Saint-Exupéry'],
-        'answers': [['replacement'], ['nothing']],
+            'truck. - Cory Dodt.', 'Perfection [in design] is achieved, not when there is ___1___ more to add, but when'
+            'there is ___1___ left to take away. - Antoine de Saint-Exupéry', 'The trouble with programmers is that you'
+            'can never tell what a ___1___ is doing until it’s too late. - Seymour Cray', 'First learn computer science'
+            'and all the theory. Next develop a programming style. Then forget all that and just ___1___ . - George '
+            'Carrette'],
+        'answers': [['replacement'], ['nothing'], ['programmer'], ['hack']],
         'attempts': 5
     },
     'medium': {
         'phrase': ['Always ___1___ as if the guy who ends up maintaining your ___1___ will be a violent ___2___ who '
             'knows where you live. - Martin Golding.', 'I have always wished for my computer to be as easy to '
-            'use as my ___1___; my wish has come true because I can no longer figure out how to use my ___1___'
-            '. - Bjarne Stroustrup'],
-        'answers': [['code', 'psychopath'], ['telephone']],
+            'use as my ___1___ ; my wish has come true because I can no longer figure out how to use my ___1___'
+            ' . - Bjarne Stroustrup', 'People think that ___1___ is the art of geniuses but the actual reality'
+            ' is the opposite, just many people doing things that build on each other, like a wall of mini stones. - '
+            'Donald Knuth', 'Debugging is twice as hard as writing the ___1___ in the first place. Therefore, if you '
+            'write the ___1___ as cleverly as possible, you are, by definition, not smart enough to debug it. - Brian W'
+            '. Kernighan.'],
+        'answers': [['code', 'psychopath'], ['telephone'], ['computer science'], ['code']],
         'attempts': 3
     },
     'hard': {
         'phrase': ['Most good ___1___ do programming not because they expect to get ___2___ or get adulation by the '
             'public, but because it is ___3___ to program. - Linus Torvalds', 'Don’t worry if it doesn’t work '
-            '___1___. If everything did, you’d be out of a job. - Mosher’s Law of Software Engineering'],
-        'answers': [['programmers', 'paid', 'fun'], ['right']],
+            '___1___ . If everything did, you’d be out of a job. - Mosher’s Law of Software Engineering', 'Measuring '
+            'programming ___1___ by lines of code is like measuring aircraft building ___1___ by weight. - Bill Gates',
+            'Beware of ___1___ in the above code; I have only proved it correct, not tried it. - Donald E. Knuth.'],
+        'answers': [['programmers', 'paid', 'fun'], ['right'], ['progress'], ['bugs']],
         'attempts': 1
     }
 }
@@ -33,6 +42,9 @@ def insert_answer(phrase, answers, answers_number):
     :param answers_number: Index of answer in data.
     :return: None.
     """
+    print phrase
+    print answers
+    print answers_number
     for index, string in enumerate(phrase):
         empty_string = "___" + str(answers_number) + "___"
         if (string == empty_string):
@@ -71,7 +83,6 @@ def mini_game(phrase, answers, attempts, failure_number):
             print "correct :)"
             insert_answer(phrase, answers, answers_number)
             answers_number += 1
-            break
         else:
             print "try again :("
             failure_number += 1
