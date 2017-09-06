@@ -44,7 +44,7 @@ data = {
 		'trailer_youtube_url': 'https://www.youtube.com/watch?v=ewlwcEBTvcg'
 	},
     '7': {
-        'type': 'shows',
+        'type': 'show',
         'title': 'Band of Brothers',
         'seasons': '1',
         'poster_image_url': 'https://images-na.ssl-images-amazon.com/images/M/MV5BMTI3ODc2ODc0M15BMl5BanBnXkFtZTYwMjgzNjc3._V1_.jpg',
@@ -52,4 +52,4 @@ data = {
     }
 }
 
-fresh_tomatoes.open_movies_page(data)
+fresh_tomatoes.open_videos_page(data)
