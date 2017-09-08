@@ -49,7 +49,42 @@ data = {
         'seasons': '1',
         'poster_image_url': 'https://images-na.ssl-images-amazon.com/images/M/MV5BMTI3ODc2ODc0M15BMl5BanBnXkFtZTYwMjgzNjc3._V1_.jpg',
         'trailer_youtube_url': 'https://www.youtube.com/watch?v=kyDkHvi9yeI'
-    }
+    },
+	'8': {
+		'type': 'show',
+		'title': 'True Detective',
+		'seasons': '2',
+		'poster_image_url': 'https://images-na.ssl-images-amazon.com/images/M/MV5BMmRlYmE0Y2UtNDk2Yi00NzczLWEwZTEtZmE2OTcyYzcxYmU5XkEyXkFqcGdeQXVyNTMxMjgxMzA@._V1_SY1000_CR0,0,713,1000_AL_.jpg',
+		'trailer_youtube_url': 'https://www.youtube.com/watch?v=fVQUcaO4AvE'
+	},
+	'9': {
+		'type': 'show',
+		'title': 'Game of Thrones',
+		'seasons': '8',
+		'poster_image_url': 'https://images-na.ssl-images-amazon.com/images/M/MV5BMjE3NTQ1NDg1Ml5BMl5BanBnXkFtZTgwNzY2NDA0MjI@._V1_SY1000_CR0,0,674,1000_AL_.jpg',
+		'trailer_youtube_url': 'https://www.youtube.com/watch?v=giYeaKsXnsI'
+	},
+	'10': {
+		'type': 'show',
+		'title': 'Breaking Bad',
+		'seasons': '5',
+		'poster_image_url': 'https://images-na.ssl-images-amazon.com/images/M/MV5BZDNhNzhkNDctOTlmOS00NWNmLWEyODQtNWMxM2UzYmJiNGMyXkEyXkFqcGdeQXVyNTMxMjgxMzA@._V1_.jpg',
+		'trailer_youtube_url': 'https://www.youtube.com/watch?v=HhesaQXLuRY'
+	},
+	'11': {
+		'type': 'show',
+		'title': 'Cosmos',
+		'seasons': '1',
+		'poster_image_url': 'https://images-na.ssl-images-amazon.com/images/M/MV5BMTY4MGQyNjgtMzdmZS00MjQ5LWIyMzItYjYyZmQzNjVhYjMyXkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_SY1000_CR0,0,715,1000_AL_.jpg',
+		'trailer_youtube_url': 'https://www.youtube.com/watch?v=bSxHZPoQ4JQ'
+	},
+	'12': {
+		'type': 'show',
+		'title': 'The Sopranos',
+		'seasons': '6',
+		'poster_image_url': 'https://images-na.ssl-images-amazon.com/images/M/MV5BZGJjYzhjYTYtMDBjYy00OWU1LTg5OTYtNmYwOTZmZjE3ZDdhXkEyXkFqcGdeQXVyNTAyODkwOQ@@._V1_SY1000_CR0,0,702,1000_AL_.jpg',
+		'trailer_youtube_url': 'https://www.youtube.com/watch?v=wrN2k3qGbVA'
+	}
 }
 
 fresh_tomatoes.open_videos_page(data)
