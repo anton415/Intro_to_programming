@@ -6,7 +6,7 @@ import re
 main_page_head = '''
 <head>
     <meta charset="utf-8">
-    <title>Videos!</title>
+    <title>Fresh Tomatoes!</title>
 
     <!-- Bootstrap 3 -->
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
@@ -62,7 +62,7 @@ main_page_head = '''
             $("#trailer-video-container").empty();
         });
         // Start playing the video whenever the trailer modal is opened
-        $(document).on('click', '.video-tile', function (event) {
+        $(document).on('click', '.movie-tile', function (event) {
             var trailerYouTubeId = $(this).attr('data-trailer-youtube-id')
             var sourceUrl = 'http://www.youtube.com/embed/' + trailerYouTubeId + '?autoplay=1&html5=1';
             $("#trailer-video-container").empty().append($("<iframe></iframe>", {
@@ -74,7 +74,7 @@ main_page_head = '''
         });
         // Animate in the movies when the page loads
         $(document).ready(function () {
-          $('.video-tile').hide().first().show("fast", function showNext() {
+          $('.movie-tile').hide().first().show("fast", function showNext() {
             $(this).next("div").show("fast", showNext);
           });
         });
@@ -99,96 +99,55 @@ main_page_content = '''
         </div>
       </div>
     </div>
-    
+
     <!-- Main Page Content -->
-    <div class="container movies">
-      <div class="navbar navbar-inverse navbar-fixed-top-1" role="navigation">
-        <div class="container movies">
-          <div class="navbar-header-movie">
-            <a class="navbar-brand" href="#">Movie Trailers</a>
+    <div class="container">
+      <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#">Fresh Tomatoes Movie Trailers</a>
           </div>
         </div>
       </div>
     </div>
-    <div class="container movies">
-      {movie_titles}
-    </div>
-    
-    <div class="container shows">
-      <div class="navbar navbar-inverse navbar-fixed-top-2" role="navigation">
-        <div class="container shows">
-          <div class="navbar-header-shows">
-            <a class="navbar-brand" href="#">TV Shows Trailers</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="container shows">
-      {show_titles}
+    <div class="container">
+      {movie_tiles}
     </div>
   </body>
 </html>
 '''
 
 # A single movie entry html template
-movie_title_content = '''
+movie_tile_content = '''
 <div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="{trailer_youtube_id}" data-toggle="modal" data-target="#trailer">
     <img src="{poster_image_url}" width="220" height="342">
     <h2>{movie_title}</h2>
 </div>
 '''
 
-show_title_content = '''
-<div class="col-md-6 col-lg-4 show-tile text-center" data-trailer-youtube-id="{trailer_youtube_id}" data-toggle="modal" data-target="#trailer">
-    <img src="{poster_image_url}" width="220" height="342">
-    <h2>{show_title}</h2>
-</div>
-'''
-
-def create_movie_titles_content(videos):
+def create_movie_tiles_content(movies):
     # The HTML content for this section of the page
     content = ''
-
-    for video in videos:
+    for movie in movies:
         # Extract the youtube ID from the url
-        if videos[video]['type'] == 'movie' :
-            youtube_id_match = re.search(r'(?<=v=)[^&#]+', videos[video]['trailer_youtube_url'])
-            youtube_id_match = youtube_id_match or re.search(r'(?<=be/)[^&#]+', videos[video]['trailer_youtube_url'])
-            trailer_youtube_id = youtube_id_match.group(0) if youtube_id_match else None
+        youtube_id_match = re.search(r'(?<=v=)[^&#]+', movie.trailer_youtube_url)
+        youtube_id_match = youtube_id_match or re.search(r'(?<=be/)[^&#]+', movie.trailer_youtube_url)
+        trailer_youtube_id = youtube_id_match.group(0) if youtube_id_match else None
 
-            # Append the tile for the movie with its content filled in
-            content += movie_title_content.format(
-                movie_title=videos[video]['title'],
-                poster_image_url=videos[video]['poster_image_url'],
-                trailer_youtube_id=trailer_youtube_id
-            )
+        # Append the tile for the movie with its content filled in
+        content += movie_tile_content.format(
+            movie_title=movie.title,
+            poster_image_url=movie.poster_image_url,
+            trailer_youtube_id=trailer_youtube_id
+        )
     return content
 
-def create_show_titles_content(videos):
-    # The HTML content for this section of the page
-    content = ''
-
-    for video in videos:
-        # Extract the youtube ID from the url
-        if videos[video]['type'] == 'show' :
-            youtube_id_match = re.search(r'(?<=v=)[^&#]+', videos[video]['trailer_youtube_url'])
-            youtube_id_match = youtube_id_match or re.search(r'(?<=be/)[^&#]+', videos[video]['trailer_youtube_url'])
-            trailer_youtube_id = youtube_id_match.group(0) if youtube_id_match else None
-
-            # Append the tile for the movie with its content filled in
-            content += show_title_content.format(
-                show_title=videos[video]['title'],
-                poster_image_url=videos[video]['poster_image_url'],
-                trailer_youtube_id=trailer_youtube_id
-            )
-    return content
-
-def open_videos_page(videos):
+def open_movies_page(movies):
   # Create or overwrite the output file
   output_file = open('fresh_tomatoes.html', 'w')
 
   # Replace the placeholder for the movie tiles with the actual dynamically generated content
-  rendered_content = main_page_content.format(movie_titles=create_movie_titles_content(videos), show_titles=create_show_titles_content(videos))
+  rendered_content = main_page_content.format(movie_tiles=create_movie_tiles_content(movies))
 
   # Output the file
   output_file.write(main_page_head + rendered_content)
