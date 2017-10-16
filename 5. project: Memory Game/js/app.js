@@ -50,8 +50,10 @@ function viewCard() {
             $(secondCardData).toggleClass('open show');
             openCards = openCards + 2;
             console.log("You open: " + openCards);
-            if (openCards === 16) {
+            if (openCards === 2) {
                 console.log("You win!");
+                congratulation();
+                // Congratulations! You Won!
             }
         } else {
             setTimeout(wait, 2000);
@@ -60,7 +62,11 @@ function viewCard() {
     }
 }
 
-console.log("Hello World! 1");
+console.log("Hello World! 4");
+
+var congratulation = function() {
+    document.getElementById('win').removeAttribute('style');
+};
 
 var wait = function() {
     $(firstCardData).toggleClass('match');
@@ -77,6 +83,10 @@ console.log(arrayCards.length);
 arrayCards = shuffle(arrayCards);
 // Add to page.
 $(".deck").append(arrayCards);
+
+
+
+
 
 
 /*
