@@ -30,20 +30,25 @@ var secondCardData;
 var firstCard;
 var secondCard;
 var openCards = 0;
+var time = performance.now();
+var moveCount = 0;
 
 $('.card').on("click", viewCard);
 
 function viewCard() {
+
     if (action === 1) {
         $(event.target).toggleClass('match');
         firstCardData = $(event.target);
         firstCard = event.target.childNodes.item(1);
         action = 2;
     } else {
+        moveCount++;
         $(event.target).toggleClass('match');
         secondCardData = $(event.target);
         secondCard = event.target.childNodes.item(1);
         if (firstCard.isEqualNode(secondCard)) {
+
             $(firstCardData).toggleClass('match');
             $(secondCardData).toggleClass('match');
             $(firstCardData).toggleClass('open show');
@@ -53,7 +58,6 @@ function viewCard() {
             if (openCards === 2) {
                 console.log("You win!");
                 congratulation();
-                // Congratulations! You Won!
             }
         } else {
             setTimeout(wait, 2000);
@@ -62,10 +66,12 @@ function viewCard() {
     }
 }
 
-console.log("Hello World! 4");
+console.log("Hello World! 8");
 
 var congratulation = function() {
     document.getElementById('win').removeAttribute('style');
+    time = performance.now() - time;
+    console.log('Win ' + moveCount + ' Moves, ' + parseInt(time/1000) + ' seconds and ');
 };
 
 var wait = function() {
@@ -78,7 +84,6 @@ var wait = function() {
 };
 
 var arrayCards = $('.card');
-console.log(arrayCards.length);
 // Shuffle cards.
 arrayCards = shuffle(arrayCards);
 // Add to page.
