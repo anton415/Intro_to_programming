@@ -36,8 +36,13 @@ var stars = 3;
 
 $('.card').on("click", viewCard);
 
-function viewCard() {
+$('.restart').on("click", restart);
 
+function restart() {
+    window.location.reload();
+}
+
+function viewCard() {
     if (action === 1) {
         $(event.target).toggleClass('match');
         firstCardData = $(event.target);
@@ -67,7 +72,7 @@ function viewCard() {
     }
 }
 
-console.log("Hello World! 1");
+console.log("Hello World! 2");
 
 var congratulation = function() {
     document.getElementById('win').removeAttribute('style');
