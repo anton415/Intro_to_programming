@@ -32,6 +32,7 @@ var secondCard;
 var openCards = 0;
 var time = performance.now();
 var moveCount = 0;
+var moveCountForRemoveStars = 0;
 var stars = 3;
 
 $('.card').on("click", viewCard);
@@ -50,18 +51,18 @@ function viewCard() {
         action = 2;
     } else {
         moveCount++;
+        moveCountForRemoveStars++;
         $(event.target).toggleClass('match');
         secondCardData = $(event.target);
         secondCard = event.target.childNodes.item(1);
         if (firstCard.isEqualNode(secondCard)) {
-
             $(firstCardData).toggleClass('match');
             $(secondCardData).toggleClass('match');
             $(firstCardData).toggleClass('open show');
             $(secondCardData).toggleClass('open show');
             openCards = openCards + 2;
             console.log("You open: " + openCards);
-            if (openCards === 2) {
+            if (openCards === 16) {
                 console.log("You win!");
                 congratulation();
             }
@@ -69,10 +70,27 @@ function viewCard() {
             setTimeout(wait, 2000);
         }
         action = 1;
+        starRating();
+        moveDisplay();
     }
 }
 
-console.log("Hello World! 2");
+var starRating = function() {
+    console.log("moveCount " + moveCount);
+    if (stars > 0) {
+        if (moveCountForRemoveStars >= 16) {
+            $('.stars').children("li").get(0).remove();
+            stars--;
+            moveCountForRemoveStars = 0;
+        }
+    }
+};
+
+var moveDisplay = function () {
+    console.log($('.moves').text());
+    $('.moves').text(moveCount)
+    console.log($('.moves').text());
+}
 
 var congratulation = function() {
     document.getElementById('win').removeAttribute('style');
