@@ -44,11 +44,13 @@ function restart() {
 }
 
 function viewCard() {
+    congratulation();
     if (action === 1) {
         $(event.target).toggleClass('match');
         firstCardData = $(event.target);
         firstCard = event.target.childNodes.item(1);
         action = 2;
+
     } else {
         moveCount++;
         moveCountForRemoveStars++;
@@ -61,12 +63,11 @@ function viewCard() {
             $(firstCardData).toggleClass('open show');
             $(secondCardData).toggleClass('open show');
             openCards = openCards + 2;
-            console.log("You open: " + openCards);
             if (openCards === 16) {
-                console.log("You win!");
                 congratulation();
             }
         } else {
+            $('.card').off("click");
             setTimeout(wait, 2000);
         }
         action = 1;
@@ -76,7 +77,6 @@ function viewCard() {
 }
 
 var starRating = function() {
-    console.log("moveCount " + moveCount);
     if (stars > 0) {
         if (moveCountForRemoveStars >= 16) {
             $('.stars').children("li").get(0).remove();
@@ -87,9 +87,7 @@ var starRating = function() {
 };
 
 var moveDisplay = function () {
-    console.log($('.moves').text());
     $('.moves').text(moveCount)
-    console.log($('.moves').text());
 }
 
 var congratulation = function() {
@@ -97,8 +95,7 @@ var congratulation = function() {
     time = performance.now() - time;
     if (moveCount > 20) stars - 1;
     if (moveCount > 30) stars - 1;
-    if (moveCount > 40) stars - 1;
-    console.log('Win. You got: ' + moveCount + ' moves, ' + parseInt(time/1000) + ' seconds and ' + stars + ' stars.');
+    $('.allTime').html('You got: ' + moveCount + ' moves, ' + parseInt(time/1000) + ' seconds and ' + stars + ' stars.');
 };
 
 var wait = function() {
@@ -108,6 +105,7 @@ var wait = function() {
     secondCardData = null;
     firstCard = null;
     secondCard = null;
+    $('.card').on("click", viewCard);
 };
 
 var arrayCards = $('.card');
@@ -116,14 +114,32 @@ arrayCards = shuffle(arrayCards);
 // Add to page.
 $(".deck").append(arrayCards);
 
+// time counter.
+function startTimer(display) {
+    var start = Date.now(),
+        diff,
+        minutes,
+        seconds;
+    function timer() {
+        // get the number of seconds that have elapsed since
+        // startTimer() was called
+        diff = (((Date.now() - start) / 1000) | 0);
 
+        // does the same job as parseInt truncates the float
+        minutes = (diff / 60) | 0;
+        seconds = (diff % 60) | 0;
 
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
 
+        display.textContent = minutes + ":" + seconds;
+    };
+    // we don't want to wait a full second before the timer starts
+    timer();
+    setInterval(timer, 1000);
+}
 
-
-/*
-Object.keys(arrayCards).forEach(function(element) {
-    console.log(element.outerHTML);
-});
-alert(arrayCards[0].outerHTML);
- */
+window.onload = function () {
+    var display = document.querySelector('#time');
+    startTimer(display);
+};

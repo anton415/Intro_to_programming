@@ -14,6 +14,7 @@
         <header>
             <h1>Matching Game</h1>
         </header>
+        <div>You spent <span id="time"></span> minutes!</div>
 
         <section class="score-panel">
         	<ul class="stars">
@@ -23,6 +24,8 @@
         	</ul>
 
         	<span class="moves">0</span> Moves
+
+
 
             <div class="restart">
         		<i class="fa fa-repeat"></i>
@@ -85,13 +88,16 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="js/app.js"></script>
 
+
+
     <div id="win" style="display:none;">
         <div class="overlay"></div>
         <div class="visible">
             <div class="content">
                 <p>Congratulations! You Won!</p>
+                <p class="allTime"></p>
+                <button type="button" onClick="window.location.reload()">Play again</button>
             </div>
-            <button type="button" onClick="window.location.reload()">Play again</button>
         </div>
     </div>
 
